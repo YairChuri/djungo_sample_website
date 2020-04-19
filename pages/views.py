@@ -3,6 +3,14 @@ from django.http import HttpResponse
 from listings.models import Listing
 from realtors.models import Realtor
 from listings.choices import price_choices, bedroom_choices, state_choices
+from django.conf.urls import url
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Pastebin API')
+
+urlpatterns = [
+    url(r'^$', schema_view)
+]
 
 def index(request):
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]
